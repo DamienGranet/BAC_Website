@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bronzeagecollapse.band/sitemap.xml

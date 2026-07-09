@@ -37,7 +37,7 @@ window.BAC = {
      show a simple follow button instead.
      ------------------------------------------------------------------ */
   featuredInstagramPosts: [
-    // "https://www.instagram.com/p/XXXXXXXXX/",
+     "https://www.instagram.com/p/DVSKzxFk-Qq/","https://www.instagram.com/p/DUzNZpDkix5/","https://www.instagram.com/p/DQYd7JXExVe/"
   ],
 
   /* ------------------------------------------------------------------

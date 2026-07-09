@@ -2,13 +2,13 @@
    BRONZE AGE COLLAPSE — SITE CONFIG
    ==========================================================================
    This is the ONLY file you need to edit for day-to-day updates.
-   Edit it on github.com (pencil icon) or locally, commit, and the site
-   updates within a minute or two.
+   Edit it on github.com (pencil icon), commit, and the site redeploys
+   automatically within a minute or two.
 
    Rules of thumb:
    - Keep the commas! Every item in a list ends with a comma except the last.
    - Text goes inside "double quotes".
-   - To hide something, set it to null or delete the entry.
+   - Lines starting with // are comments and do nothing.
    ========================================================================== */
 
 window.BAC = {
@@ -27,19 +27,22 @@ window.BAC = {
     pressWoroni:"https://www.woroni.com.au/words/woroni-radios-picks-best-local-gold-for-2026-so-far/",
   },
 
-  /* Spotify artist ID — used for the embedded music player/carousel */
+  /* Spotify artist ID — powers the embedded player on the home page */
   spotifyArtistId: "3QsOVEVzFFD0ByheW88tjf",
 
   /* ------------------------------------------------------------------
-     INSTAGRAM — paste the URL of the post you want featured on the
-     home page. Get it from Instagram > post > ⋯ > Copy link.
-     Set to null to show the follow card only.
+     INSTAGRAM POSTS ON THE HOME PAGE
+     Paste up to 3 post URLs (Instagram > post > ⋯ > Copy link) and they
+     appear embedded in the "gigs" section. Leave the list empty [] to
+     show a simple follow button instead.
      ------------------------------------------------------------------ */
-  featuredInstagramPost: null,
+  featuredInstagramPosts: [
+    // "https://www.instagram.com/p/XXXXXXXXX/",
+  ],
 
   /* ------------------------------------------------------------------
-     NEW MUSIC BANNER — shows in the ticker at the top of every page.
-     Remove items as they get released (then add them to `releases`).
+     NEW MUSIC BANNER — the strip at the top of every page.
+     Remove songs as they release; add new ones any time.
      ------------------------------------------------------------------ */
   comingSoon: [
     { title: "In Situ",    note: "single — upcoming album" },
@@ -48,25 +51,8 @@ window.BAC = {
   ],
 
   /* ------------------------------------------------------------------
-     RELEASES
-     ------------------------------------------------------------------ */
-  releases: [
-    {
-      title: "Game of Charades",
-      type: "Album",
-      date: "1 January 2026",
-      cover: "assets/album-game-of-charades.jpg",
-      tracks: [
-        "Voidsteer", "Getaway", "Therapy", "Delusions", "Bittersweet",
-        "The World", "Melancholia", "Phil's Big Night Out", "Stone Lips",
-      ],
-    },
-  ],
-
-  /* ------------------------------------------------------------------
-     BAND MEMBERS
-     `social` is optional — paste a member's Instagram (or other) URL
-     between the quotes to turn their name into a link, or leave null.
+     BAND MEMBERS — put an Instagram URL in `social` to make a name a
+     link, or leave it null.
      ------------------------------------------------------------------ */
   members: [
     { name: "Liam Sandison", role: "Vocals & Guitar", social: null },
@@ -76,50 +62,87 @@ window.BAC = {
   ],
 
   /* ------------------------------------------------------------------
-     GIGS — the schedule module on the home page and the Gigs page
-     both read from these two lists.
-
-     To add a gig:
-       { date: "12 Sep 2026", title: "Gig name", venue: "Venue, City",
-         link: "https://tickets...", poster: "assets/posters/my-poster.jpg" }
-
-     `link` and `poster` are optional (use null).
-     Put poster images in assets/posters/ (any size; portrait looks best).
+     POSTER ARCHIVE (Archive page)
+     To add a poster: upload the image to assets/posters/ on GitHub,
+     then add a line here. Newest first looks best.
      ------------------------------------------------------------------ */
-  upcomingGigs: [
-    /* No gigs announced here yet — follow Instagram for announcements. */
-  ],
-
-  pastGigs: [
-    /* Example (delete the slashes at the start of each line to use):
-    // { date: "1 Jan 2026", title: "Album launch", venue: "Venue, Canberra",
-    //   link: null, poster: "assets/posters/launch.jpg" },
-    */
+  posters: [
+    { image: "assets/posters/bush-week-marie-reay.jpg",
+      caption: "Bush Week — Marie Reay Lvl 6, Fri July 25" },
+    { image: "assets/posters/baso-25-sep-vector.jpg",
+      caption: "With Nightswim & Good Lightning — The Baso, 25 Sep" },
+    { image: "assets/posters/getaway-launch-baso.jpg",
+      caption: "Getaway single launch — The Baso, 25 Sept" },
+    { image: "assets/posters/getaway-launch-social.jpg",
+      caption: "Getaway single launch announcement" },
+    { image: "assets/posters/acoustic-smiths-alternative.jpg",
+      caption: "Acoustic set — Smith's Alternative, Thu Sep 4" },
+    { image: "assets/posters/o-week-sullys-creek.jpg",
+      caption: "O-Week — Sully's Creek Amphitheatre, Fri 20 Feb" },
+    { image: "assets/posters/album-party-pot-belly.jpg",
+      caption: "Game of Charades album party — The Pot Belly, Fri 6 Mar" },
   ],
 
   /* ------------------------------------------------------------------
-     MILESTONES — non-gig history shown on the Gigs page timeline.
+     SOME PLACES WE'VE PLAYED (Archive page map)
+     lat/lng are decimal coordinates — right-click a spot in Google Maps
+     and it shows them. Set closed: true for venues that no longer exist.
      ------------------------------------------------------------------ */
-  milestones: [
-    {
-      date: "1 January 2026",
-      title: "Debut album — Game of Charades",
-      detail: "Nine tracks of grunge-inspired hard rock, out on all platforms.",
+  venues: [
+    { name: "The Baso", area: "Belconnen",
+      lat: -35.240317, lng: 149.059104, closed: false,
+      note: "2 Cohen St — thebaso.com.au" },
+    { name: "The Pot Belly", area: "Belconnen",
+      lat: -35.241873, lng: 149.062711, closed: false,
+      note: "Weedon Close institution" },
+    { name: "Shadows Night Club", area: "Civic",
+      lat: -35.279234, lng: 149.130282, closed: false, note: "East Row" },
+    { name: "Dissent Café & Bar", area: "Civic",
+      lat: -35.279138, lng: 149.132006, closed: false, note: "City Walk" },
+    { name: "Smith's Alternative", area: "Civic",
+      lat: -35.278524, lng: 149.128612, closed: false, note: "Alinga St" },
+    { name: "Transit Bar", area: "Civic",
+      lat: -35.279534, lng: 149.130817, closed: false, note: "London Circuit" },
+    { name: "Dickson Square", area: "Dickson",
+      lat: -35.250144, lng: 149.139857, closed: false, note: "Open-air" },
+    { name: "Haig Park", area: "Braddon",
+      lat: -35.269100, lng: 149.133000, closed: false, note: "Under the pines" },
+    { name: "Marie Reay Building", area: "ANU campus",
+      lat: -35.277667, lng: 149.120510, closed: false, note: "Level 6, Kambri" },
+    { name: "Sullivans Creek Amphitheatre", area: "ANU campus",
+      lat: -35.277200, lng: 149.118500, closed: false, note: "Uni Ave, by the creek" },
+  ],
+
+  /* ------------------------------------------------------------------
+     BAND TIMELINE (Archive page)
+     `link` and `linkLabel` are optional — set both or leave them out.
+     ------------------------------------------------------------------ */
+  bandTimeline: [
+    { date: "Early 2022",
+      title: "Jonny and Damo jam",
+      detail: "It begins." },
+    { date: "February 2023",
+      title: "Liam, Jacob and Damo jam Led Zeppelin and Soundgarden late at night",
+      detail: "Nobody complains. A sign." },
+    { date: "March 2023",
+      title: "Band is formed",
+      detail: "We name ourselves the Bismarcks, after the German politician. Many gigs ensue." },
+    { date: "December 2024",
+      title: "Recording begins for Game of Charades",
+      detail: "" },
+    { date: "1 January 2026",
+      title: "Game of Charades releases on streaming",
+      detail: "Nine tracks, everywhere you listen.",
       link: "https://open.spotify.com/intl-fr/artist/3QsOVEVzFFD0ByheW88tjf",
-      linkLabel: "Listen on Spotify",
-    },
-    {
-      date: "2026",
-      title: "\u201CThe World\u201D picked by Woroni Radio",
-      detail: "Featured in Woroni Radio's picks of the best local gold for 2026 so far.",
-      link: "https://www.woroni.com.au/words/woroni-radios-picks-best-local-gold-for-2026-so-far/",
-      linkLabel: "Read the article",
-    },
+      linkLabel: "Listen on Spotify" },
+    { date: "June 2026",
+      title: "First singles recorded for an aspirational second album",
+      detail: "" },
   ],
 
   /* ------------------------------------------------------------------
-     MERCH — set status to "available" | "wip" | "soldout".
-     `link` (optional): where to buy/order; null shows "DM us on Instagram".
+     MERCH — status is "available" | "wip" | "soldout".
+     `link` (optional): where to buy; null shows "DM us on Instagram".
      ------------------------------------------------------------------ */
   merch: [
     {
@@ -132,7 +155,7 @@ window.BAC = {
     {
       name: "T-Shirts",
       status: "wip",
-      image: "assets/bac-lettering.png",
+      image: "assets/album-game-of-charades.jpg",
       blurb: "In the works. Watch Instagram for the drop.",
       link: null,
     },
@@ -143,12 +166,5 @@ window.BAC = {
       blurb: "The debut album, physically. Coming soon.",
       link: null,
     },
-  ],
-
-  /* ------------------------------------------------------------------
-     FRIENDS OF THE BAND — small links in the footer.
-     ------------------------------------------------------------------ */
-  friends: [
-    { name: "ANU CSSA", url: "https://cssa.club/" },
   ],
 };

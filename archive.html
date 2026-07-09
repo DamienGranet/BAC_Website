@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archive — Bronze Age Collapse</title>
+  <meta name="description" content="The Bronze Age Collapse archive: live photos, gig posters, a map of the Canberra venues we've played, and the band timeline.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Bronze Age Collapse">
+  <meta property="og:title" content="Archive — Bronze Age Collapse">
+  <meta property="og:description" content="Live photos, gig posters, a map of the venues we've played, and the band timeline.">
+  <meta property="og:url" content="https://bronzeagecollapse.band/archive.html">
+  <meta property="og:image" content="https://bronzeagecollapse.band/assets/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bronzeagecollapse.band/assets/og-cover.jpg">
+
+  <link rel="canonical" href="https://bronzeagecollapse.band/archive.html">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/logo-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Leaflet (map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="ticker" id="ticker" aria-label="New music coming soon"></div>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Main">
+      <a class="nav__brand" href="index.html">
+        <img src="assets/logo-drum.png" alt="Bronze Age Collapse bass drum logo" width="42" height="42">
+        <span>Bronze Age Collapse</span>
+      </a>
+      <div class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="archive.html" aria-current="page">Archive</a>
+        <a href="merch.html">Merch</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="page-hero wrap">
+      <p class="eyebrow">The archive</p>
+      <h1>Archive</h1>
+      <p>Photos, posters, and places from shows gone by. New gigs are announced on
+      <a href="https://www.instagram.com/bronze_age_collapse_band/">Instagram</a>.</p>
+    </div>
+
+    <!-- PHOTO ARCHIVE -->
+    <section class="section" id="photos">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">On stage</p>
+          <h2>Photo archive</h2>
+        </div>
+        <div class="gallery">
+          <figure><img src="assets/gig1.jpg" alt="Two guitarists on stage under purple light" loading="lazy"></figure>
+          <figure><img src="assets/gig2.jpg" alt="Singer and guitarist pointing to the crowd in blue light" loading="lazy"></figure>
+          <figure><img src="assets/gig3.jpg" alt="Drummer behind the BAC bass drum in purple stage light" loading="lazy"></figure>
+          <figure><img src="assets/gig4.jpg" alt="Guitarist playing a red guitar under magenta light" loading="lazy"></figure>
+          <figure><img src="assets/gig5.jpg" alt="Bassist mid-riff with orange and blue stage lights" loading="lazy"></figure>
+          <figure><img src="assets/gig6.jpg" alt="The full band playing under deep red light" loading="lazy"></figure>
+          <figure><img src="assets/gig7.jpg" alt="Two guitarists lit in blue and red" loading="lazy"></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- POSTER ARCHIVE -->
+    <section class="section section--tint" id="posters">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">On walls</p>
+          <h2>Poster archive</h2>
+        </div>
+        <div class="gallery" id="poster-archive"></div>
+      </div>
+    </section>
+
+    <!-- VENUE MAP -->
+    <section class="section" id="places">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">On the map</p>
+          <h2>Some places we've played</h2>
+          <p class="section__blurb">Canberra venues that have had us — a couple have since closed, but they count.</p>
+        </div>
+        <div class="venue-map" id="venue-map" aria-label="Map of venues Bronze Age Collapse have played"></div>
+        <ul class="venue-list" id="venue-list"></ul>
+      </div>
+    </section>
+
+    <!-- BAND TIMELINE -->
+    <section class="section section--tint" id="timeline">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">So far</p>
+          <h2>Band timeline</h2>
+        </div>
+        <ul class="timeline" id="band-timeline"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <h3>Contact</h3>
+          <ul id="footer-contact"></ul>
+        </div>
+        <div>
+          <h3>Music &amp; socials</h3>
+          <ul id="footer-links"></ul>
+        </div>
+        <div>
+          <h3>Site</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="archive.html">Archive</a></li>
+            <li><a href="merch.html">Merch</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> Bronze Age Collapse · Canberra, Australia</span>
+        <img src="assets/logo-drum.png" alt="">
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/site-config.js"></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

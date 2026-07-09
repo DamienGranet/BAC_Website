@@ -1,99 +1,135 @@
 # Bronze Age Collapse — Band Website
 
-Static site for [bronzeagecollapse.band](https://bronzeagecollapse.band/), hosted free on GitHub Pages.
-No build step, no frameworks, no dependencies to update — just HTML, CSS, and one config file.
+Static site for [bronzeagecollapse.band](https://bronzeagecollapse.band/).
+Plain HTML/CSS/JS, no frameworks, no build step. Deploys automatically to
+GitHub Pages via GitHub Actions on every push to `main`.
 
 ## How the site is organised
 
 ```
-├── index.html            Home (hero, gigs module, about, album, listen, Instagram, contact)
-├── gigs.html             Upcoming + past gigs, milestones timeline, live photos
-├── merch.html            Merch
-├── 404.html              Themed "page not found"
-├── css/style.css         All styling (colour tokens at the top)
-├── js/main.js            Renders config data into the pages (rarely needs editing)
-├── data/site-config.js   ★ THE FILE YOU EDIT ★
-├── assets/               Images (posters go in assets/posters/)
-├── CNAME                 The custom domain — do not delete
-└── .nojekyll             Tells GitHub not to run Jekyll — do not delete
+├── index.html              Home (hero, listen, about, album, gigs/Instagram, contact)
+├── archive.html            Photo archive, poster archive, venue map, band timeline
+├── merch.html              Merch
+├── gigs.html               Redirect stub → archive.html (old URL)
+├── 404.html                Themed "page not found"
+├── css/style.css           All styling (colour tokens at the top)
+├── js/main.js              Renders config data into the pages (rarely needs editing)
+├── data/site-config.js     ★ THE FILE YOU EDIT ★
+├── assets/                 Images · posters live in assets/posters/ · icons in assets/icons/
+├── .github/workflows/      The auto-deploy workflow
+├── CNAME                   Custom domain — do not delete
+└── .nojekyll               Tells GitHub not to run Jekyll — do not delete
 ```
 
-## Day-to-day updates (95% of everything)
+## Day-to-day updates (Damien, this is your section)
 
-Open **`data/site-config.js`** on github.com, click the ✏️ pencil, edit, commit.
-The live site updates in about a minute. Everything is commented inside the file.
+Open **`data/site-config.js`** on github.com, click the ✏️ pencil, edit, press
+**Commit changes**. The Actions tab shows the deploy running; the live site
+updates in about a minute. Every list in the file has a comment explaining it.
 
-| I want to… | Edit this in `site-config.js` |
+| I want to… | Do this |
 |---|---|
-| Announce a gig | Add an entry to `upcomingGigs` |
-| Archive a gig + poster | Move it to `pastGigs`, upload the poster to `assets/posters/`, set its `poster` path |
-| Change the "coming soon" ticker | Edit `comingSoon` (delete released singles, add new ones) |
-| Feature an Instagram post on the home page | Paste the post URL into `featuredInstagramPost` |
-| Add a member's Instagram | Put the URL in their `social` field under `members` |
-| Update merch (e.g. tees go live) | Change `status` to `"available"`, add a `link` if you have a store |
-| Add a milestone | Add to `milestones` |
+| Change the "new music coming soon" strip | Edit `comingSoon` |
+| Show recent Instagram posts on the home page | Paste post URLs (post → ⋯ → Copy link) into `featuredInstagramPosts` |
+| Add a poster to the archive | Upload the image to `assets/posters/` (Add file → Upload files), then add a `{ image, caption }` line to `posters` |
+| Add a venue pin to the map | Add to `venues` — right-click the spot in Google Maps to copy `lat, lng` |
+| Extend the band timeline | Add to `bandTimeline` |
+| Update merch | Change `status` ("available" / "wip" / "soldout"), swap `image`, add a `link` |
+| Link a member's Instagram | Put the URL in their `social` field |
 
-**Uploading images on github.com:** open the `assets/posters/` folder → *Add file* → *Upload files*.
-Keep posters under ~500 KB each (export from Canva at "medium" quality) so pages stay fast.
+Keep uploaded posters under ~500 KB each (export from Canva at "medium"
+quality) so the page stays fast.
 
-## One-time setup: deploying to GitHub Pages
+If an edit breaks something, it's almost always a missing comma or quote in
+`site-config.js`. The deploy workflow checks the file and will fail with the
+line number, and the previous version of the site stays live until you fix it.
 
-1. Create the repo `https://github.com/DamienGranet/BAC_Website` and push these files to the `main` branch (all files at the repo root, not in a subfolder).
-2. On GitHub: **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)` → Save.**
-3. The site goes live at `https://damiengranet.github.io/BAC_Website/` within a couple of minutes.
-   - Note: the URL matches the repo name's exact capitalisation. If you want the lowercase
-     `damiengranet.github.io/bac_website`, name the repo `bac_website` (you can rename it in
-     Settings → General with no other changes needed).
+## Deployment
 
-### Connecting the custom domain (bronzeagecollapse.band)
+### One-time setup
 
-The repo already contains a `CNAME` file with the domain, so GitHub is ready. On your domain
-registrar's DNS panel:
+1. Push this folder to `main` on `https://github.com/DamienGranet/BAC_Website`
+   (all files at the repo root).
+2. On GitHub: **Settings → Pages → Source: GitHub Actions.**
+3. Done. Every push to `main` now deploys automatically. You can also trigger
+   a deploy by hand from the **Actions** tab → *Deploy to GitHub Pages* →
+   *Run workflow*.
 
-1. Add four **A records** for the apex domain `bronzeagecollapse.band` pointing to GitHub Pages:
+The site serves at `https://damiengranet.github.io/BAC_Website/` (the URL
+matches the repo name's capitalisation — rename the repo to `bac_website` in
+Settings → General if you want it lowercase) and at the custom domain once
+DNS is connected.
+
+### Custom domain (bronzeagecollapse.band)
+
+The repo already contains the `CNAME` file. At your domain registrar:
+
+1. Four **A records** on the apex `bronzeagecollapse.band` →
    `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-2. (Recommended) Add a **CNAME record** for `www` → `damiengranet.github.io`
-3. On GitHub: **Settings → Pages → Custom domain** → enter `bronzeagecollapse.band` → Save,
-   then tick **Enforce HTTPS** once the certificate is issued (can take up to a day).
+2. (Recommended) **CNAME record** `www` → `damiengranet.github.io`
+3. GitHub: **Settings → Pages → Custom domain** → `bronzeagecollapse.band` →
+   Save → tick **Enforce HTTPS** when the certificate is issued.
 
-Verify the exact IPs against GitHub's current documentation if it has been a while —
-search "GitHub Pages custom domain apex" for the official docs page.
+These IPs are GitHub's documented Pages addresses; double-check the official
+"GitHub Pages custom domain" docs if it's been a while.
 
-### Before the custom domain is live
+Until the domain is live, Open Graph link previews (which hard-code the final
+domain) won't resolve on the `github.io` URL. If you want previews sooner,
+find-and-replace `https://bronzeagecollapse.band/` with the `github.io` URL in
+the HTML files, then swap back when DNS lands. Platforms cache previews —
+refresh with their debug tools (e.g. developers.facebook.com/tools/debug).
 
-Everything works on the `github.io` URL except two things that hard-code the final domain:
+### Working locally on a Mac
 
-- **Link previews (Open Graph tags)** point at `https://bronzeagecollapse.band/...`, so shared
-  links won't show the preview image until the domain is connected. If you want previews on the
-  `github.io` URL in the meantime, find-and-replace `https://bronzeagecollapse.band/` with
-  `https://damiengranet.github.io/BAC_Website/` in the three HTML files (and swap back later).
-- `sitemap.xml` and `robots.txt` reference the final domain — harmless either way.
+No installs needed — macOS ships with Python:
 
-After sharing a link once, Facebook/Discord/etc. cache the preview. To refresh it, use the
-platform's debugger (e.g. developers.facebook.com/tools/debug) or add `?v=2` to the URL.
+```bash
+git clone https://github.com/DamienGranet/BAC_Website.git
+cd BAC_Website
+python3 -m http.server 8000
+# open http://localhost:8000
+```
+
+Edit, refresh the browser, and when happy:
+
+```bash
+git add -A && git commit -m "Update posters" && git push
+```
+
+The push triggers the deploy automatically.
+
+### Moving to Cloudflare Pages later (optional)
+
+Nothing about the site needs to change:
+
+1. Cloudflare dashboard → Workers & Pages → Create → Pages →
+   Connect to the GitHub repo.
+2. Build settings: **Framework preset: None · Build command: (empty) ·
+   Output directory: `/`**.
+3. Point the domain's DNS at Cloudflare instead of the GitHub A records.
+
+You can even run both during a transition; the `CNAME` file is ignored by
+Cloudflare and only matters to GitHub.
 
 ## Design system (for extending the site)
 
-Colours and fonts are defined once as CSS variables at the top of `css/style.css`:
-bronze (`--bronze`), burgundy (`--burgundy`), cream text (`--cream`), stage-light violet/magenta
-accents, on a near-black plum base — all sampled from the gig photos and Canva assets.
-Headings use **Cinzel** (matches the Trajan-style Canva poster lettering); body text is **Inter**.
+Colour and type tokens are CSS variables at the top of `css/style.css`.
+The rules of the house style, per band feedback: flat colour (no gradient
+lettering), display headings in Cinzel set uppercase so every letter is the
+same height, one quiet outline button style, bronze used sparingly as a flat
+accent. The stage-photo palette (near-black plum, burgundy, cream) does the
+heavy lifting.
 
-To add a new page:
-1. Copy `merch.html` (it's the simplest), rename it, change the `<title>`, meta description,
-   OG tags, and content.
-2. Add a link to it in the `nav__links` block and footer of each page.
-3. Reuse the existing classes — `.section`, `.card`, `.grid grid--3`, `.btn btn--bronze`, etc.
+To add a page: copy `merch.html`, change the title/meta/OG tags and content,
+add it to the `nav__links` and footer of each page. Reusable pieces:
+`.section`, `.card`, `.grid--3`, `.btn`, `.gallery`, `.badge`, `.timeline`.
 
-Common building blocks already styled for you: gig list rows, timeline entries, badges
-(`badge--available` / `badge--wip` / `badge--soldout`), photo gallery, empty states.
+The venue map is Leaflet + CARTO dark tiles (both free, no API key). Pins are
+data-driven from `venues` in the config. The Spotify player and Instagram
+embeds load from Spotify/Instagram directly — nothing to maintain.
 
 ## Housekeeping
 
-- **Never delete** `CNAME` or `.nojekyll`.
-- The Spotify player and Instagram embed are loaded from Spotify/Instagram directly —
-  nothing to maintain, but they require visitors to be online (always true for a website).
-- Accessibility: keep writing `alt=""` text for images, and the site already respects
-  reduced-motion settings and keyboard focus.
-- If something breaks after an edit to `site-config.js`, it's almost always a missing
-  comma or quote — the browser console (F12) will tell you the line number.
+- **Never delete** `CNAME`, `.nojekyll`, or `.github/workflows/deploy.yml`.
+- Keep writing `alt` text for new images; the site respects reduced-motion
+  settings and keyboard focus out of the box.

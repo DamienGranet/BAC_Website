@@ -1,0 +1,54 @@
+# ============================================================================
+# Deploy the site to GitHub Pages on every push to main.
+#
+# One-time setup: on GitHub go to Settings → Pages and set
+#   Source: "GitHub Actions"   (not "Deploy from a branch")
+# After that this workflow handles everything automatically.
+#
+# Why a workflow for a static site?
+# - Deploys are visible in the Actions tab (easy to see if an edit went live)
+# - You can extend the "Build" step later (image optimisation, a generator,
+#   HTML checks) without changing how the site deploys
+# - Migrating to Cloudflare Pages later is trivial: it serves the same repo
+#   root with no build command needed
+# ============================================================================
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}   # allows manual "Run workflow" from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      # (Optional build step lives here in the future.
+      #  Today the repo root IS the site, so there is nothing to build.)
+
+      - name: Sanity-check the config file
+        run: node --check data/site-config.js
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
